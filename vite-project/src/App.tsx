@@ -2,12 +2,31 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [name, setName] = useState('Beggi')
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState(() => {
+    return localStorage.getItem('name')
+  })
+  
+  const [email, setEmail] = useState(() => {
+    return localStorage.getItem('email') || ''
+  })
+  
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem('isDark')
+    return savedTheme !== null ? JSON.parse(savedTheme) : true
+  })
+
   const [status, setStatus] = useState('')
-  const [isDark, setIsDark] = useState(true)
 
   useEffect(() => {
+    localStorage.setItem('name', name)
+  }, [name])
+
+  useEffect(() => {
+    localStorage.setItem('email', email)
+  }, [email])
+
+  useEffect(() => {
+    localStorage.setItem('isDark', JSON.stringify(isDark))
     document.body.setAttribute('data-theme', isDark ? 'dark' : 'light')
   }, [isDark])
 
@@ -21,7 +40,7 @@ function App() {
     <div className="App">
       <header>
         <button onClick={() => setIsDark(!isDark)}>
-          {isDark ? '☀️' : '🌙'}
+          {isDark ? 'Light' : 'Dark'}
         </button>
         <h1>{name}</h1>
         {email && <p>{email}</p>}
