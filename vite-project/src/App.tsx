@@ -1,22 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { Input } from './components/input' 
 
 function App() {
-  const [name, setName] = useState(() => {
-    return localStorage.getItem('name')
+  // State
+  const [name, setName] = useState<string>(() => {
+    return localStorage.getItem('name') ?? ''
   })
   
-  const [email, setEmail] = useState(() => {
-    return localStorage.getItem('email') || ''
+  const [email, setEmail] = useState<string>(() => {
+    return localStorage.getItem('email') ?? ''
   })
   
-  const [isDark, setIsDark] = useState(() => {
+  const [isDark, setIsDark] = useState<boolean>(() => {
     const savedTheme = localStorage.getItem('isDark')
     return savedTheme !== null ? JSON.parse(savedTheme) : true
   })
 
   const [status, setStatus] = useState('')
 
+  // Effects
   useEffect(() => {
     localStorage.setItem('name', name)
   }, [name])
@@ -30,6 +33,7 @@ function App() {
     document.body.setAttribute('data-theme', isDark ? 'dark' : 'light')
   }, [isDark])
 
+  // form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('Submitted!')
@@ -40,26 +44,29 @@ function App() {
     <div className="App">
       <header>
         <button onClick={() => setIsDark(!isDark)}>
-          {isDark ? 'Light' : 'Dark'}
+          Skipta í {isDark ? 'Light' : 'Dark'}
         </button>
-        <h1>{name}</h1>
+        <h1>{name || 'Nafn vantar'}</h1>
         {email && <p>{email}</p>}
       </header>
 
       <div className="card">
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '200px', margin: '0 auto' }}>
-          <input 
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '200px', margin: '0 auto' }}>
+          
+          <Input 
             type="text" 
             placeholder="Nafn"
-            value={name} 
+            value={name} // Passaðu að þetta sé 'name' (string), ekki 'setName'
             onChange={(e) => setName(e.target.value)} 
           />
-          <input 
+
+          <Input 
             type="email" 
             placeholder="Netfang"
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
           />
+
           <button type="submit">Senda</button>
         </form>
         {status && <p>{status}</p>}
@@ -67,5 +74,4 @@ function App() {
     </div>
   )
 }
-
 export default App
