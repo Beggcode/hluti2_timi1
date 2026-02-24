@@ -44,7 +44,7 @@ function App() {
     <div className="App">
       <header>
         <button onClick={() => setIsDark(!isDark)}>
-          Skipta í {isDark ? 'Light' : 'Dark'}
+           {isDark ? 'Light' : 'Dark'} theme
         </button>
         <h1>{name || 'Type your name'}</h1>
         {email && <p>{email}</p>}
