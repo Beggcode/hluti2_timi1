@@ -5,7 +5,7 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ type, value, onChange, placeholder }: InputProps) => {
+export const Input = ({ type = "text", value, onChange, placeholder }: InputProps) => {
   return (
     <input 
       type={type} 

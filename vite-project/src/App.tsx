@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { Input } from './components/input' 
+import { Input } from './components/input'
 
 function App() {
   // State
@@ -46,7 +46,7 @@ function App() {
         <button onClick={() => setIsDark(!isDark)}>
           Skipta í {isDark ? 'Light' : 'Dark'}
         </button>
-        <h1>{name || 'Nafn vantar'}</h1>
+        <h1>{name || 'Type your name'}</h1>
         {email && <p>{email}</p>}
       </header>
 
@@ -55,19 +55,19 @@ function App() {
           
           <Input 
             type="text" 
-            placeholder="Nafn"
-            value={name} // Passaðu að þetta sé 'name' (string), ekki 'setName'
+            placeholder="Name"
+            value={name}
             onChange={(e) => setName(e.target.value)} 
           />
 
           <Input 
             type="email" 
-            placeholder="Netfang"
+            placeholder="Email"
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
           />
 
-          <button type="submit">Senda</button>
+          <button type="submit">Send</button>
         </form>
         {status && <p>{status}</p>}
       </div>
