@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite'
+import tailwindcss from "@tailwindcss/vite"; // Bæta þessu við
 import react from '@vitejs/plugin-react'
+import path from "path"
+import { defineConfig } from 'vite'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react({
@@ -9,5 +10,11 @@ export default defineConfig({
         plugins: [['babel-plugin-react-compiler']],
       },
     }),
+    tailwindcss(), // Og þessu hérna líka!
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 })
